@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: constrained-app
+  namespace: team-alpha 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: constrained-app
+  template:
+    metadata:
+      labels:
+        app: constrained-app
+    spec:
+      containers:
+      - name: app
+        image: nginx  
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "250m"
