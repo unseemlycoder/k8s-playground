@@ -12,9 +12,16 @@ spec:
       labels:
         app: nginx
     spec:
+      volumes:
+      - name: nginx-storage
+        persistentVolumeClaim:
+          claimName: nginx-pvc
       containers:
       - name: nginx-web-server
         image: nginx
+        volumeMounts:
+        - name: nginx-storage
+          mountPath: /usr/share/nginx/html
         envFrom:
         - configMapRef:
             name: app-config
